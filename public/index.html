@@ -37,7 +37,7 @@
   
     socket.on('chat message', function(msg, username) {
       var chatItem = document.createElement('div'); 
-      chatItem.innerHTML = `<p style="font-size: 24px; font-weight: bold;">${username}</p> <p>${msg}</p>`
+      chatItem.innerHTML = `<p style="font-size: 24px; font-weight: bold;">${username} <span style="font-size: 14px; color: #727272">(chat.haydar.dev)</p> <p>${msg}</p>`
       messages.appendChild(chatItem);
       window.scrollTo(0, document.body.scrollHeight);
     });
