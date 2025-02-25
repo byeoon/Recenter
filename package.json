@@ -2,8 +2,8 @@
   "dependencies": {
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "mysql": "^2.18.1",
     "socket.io": "^4.8.1",
-    "systeminformation": "^5.25.11",
     "ws": "^8.18.0"
   }
 }

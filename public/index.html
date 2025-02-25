@@ -9,6 +9,11 @@
     <h1> Recenter - Decentralized Chat Widgets </h1>
     <h4>Multiple domains, one central place to chat.</h4>
     <button onClick=" document.getElementById('messages').innerHTML = ``;">Clear Chat (Local)</button>
+    <select style="float: right;"name="server" id="serverSelect">
+      <option value="global">Global</option>
+      <option value="haydar">chat.haydar.dev</option>
+      <option value="laura">chat.pre1ude.dev</option> <!-- Should we keep the ability to talk INSIDE of other rooms? Need feedback.-->
+    </select>
   </center>
     <ul id="messages"></ul>
     <form id="form" action="">
@@ -29,7 +34,7 @@
 
     form.addEventListener('submit', function(e) {
       e.preventDefault();
-      if (input.value && usernameInput.value) {
+      if (input.value && usernameInput.value && usernameInput.value != "Server") {
         socket.emit('chat message', input.value, usernameInput.value);
         input.value = '';
       }

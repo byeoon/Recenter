@@ -1,12 +1,22 @@
-const express = require('express');
-const http = require('http');
-const path = require('path');
-const app = express();
+require('dotenv').config()
+
+const express = require('express')
+const http = require('http')
+const path = require('path')
+var mysql = require('mysql')
+
+const app = express()
 
 const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
 
+var con = mysql.createConnection({
+  host: process.env.HOST,
+  user: process.env.USERNAME,
+  password: process.env.PASSWORD,
+  database: process.env.DATABASE
+});
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -27,6 +37,10 @@ io.on('connection', (socket) => {
   });
 });
 
-server.listen(3010, () => {
-  console.log('[Recenter] listening on port: 3010');
+server.listen(process.env.PORT, () => {
+  console.log(`[Recenter] Now listening on port: ${process.env.PORT}`);
+  con.connect(function(err) {
+    if (err) throw err;
+    console.log("[Recenter] Connected to Recenter database. DB: " + process.env.DATABASE);
+  });
 });
