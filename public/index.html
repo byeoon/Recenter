@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Recenter</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+   <center> 
+    <h1> Recenter - Decentralized Chat Widgets </h1>
+    <h4>Multiple domains, one central place to chat.</h4>
+    <button onClick=" document.getElementById('messages').innerHTML = ``;">Clear Chat (Local)</button>
+  </center>
+    <ul id="messages"></ul>
+    <form id="form" action="">
+      <input id="usernameInput" autocomplete="off" placeholder="Username" />
+      <input id="input" autocomplete="off" placeholder="Send a message... (chat.haydar.dev)" /><button>Send</button>
+    </form>
+  </body>
+</html>
+
+<script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+<script src="index.js"></script>
+<script>
+    var socket = io();
+  
+    var messages = document.getElementById('messages');
+    var form = document.getElementById('form');
+    var input = document.getElementById('input');
+    var usernameInput = document.getElementById('usernameInput');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (input.value && usernameInput.value) {
+        socket.emit('chat message', input.value, usernameInput.value);
+        input.value = '';
+      }
+    });
+  
+    socket.on('chat message', function(msg, username) {
+      var chatItem = document.createElement('div'); 
+      chatItem.innerHTML = `<p style="font-size: 24px; font-weight: bold;">${username}</p> <p>${msg}</p>`
+      messages.appendChild(chatItem);
+      window.scrollTo(0, document.body.scrollHeight);
+    });
+  </script>
