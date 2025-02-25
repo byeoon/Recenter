@@ -29,6 +29,7 @@ io.on('connection', (socket) => {
 
   socket.on('chat message', (msg, username) => {
     io.emit('chat message', msg, username); // emit chat message 
+    // io.emit is also what we use to show the message to the client, we may have to refactor this again for the other variables (timestamp and db) 
     var timesent = new Date().toISOString().slice(0, 19).replace('T', ' '); // get current time for db
     var sendMessagetoDB = `INSERT INTO messages (username, content, timestamp, server) VALUES ('${username}', '${msg}', '${timesent}', 'chat.haydar.dev')`; // sql command for db
     con.query(sendMessagetoDB, function (err, result) {
@@ -49,5 +50,28 @@ server.listen(process.env.PORT, () => {
   con.connect(function(err) {
     if (err) throw err;
     console.log("[Recenter] Connected to Recenter database. DB: " + process.env.DATABASE); 
+    getMessages();
   });
 });
+
+// Gets all messages from the database and returns it in an array.
+function getMessages() {
+  let messageList = [];
+  var selectMessagesDB = 'SELECT * from messages;';
+  con.query(selectMessagesDB, function (err, result) {
+    if (err) throw err;
+    console.log("[Recenter] Fetched messages.");
+
+    for (let i = 0; i < result.length; i++) {
+      messageList.push({
+          'id': result[i].id,
+          'username': result[0].username,
+          'content': result[0].content,
+          'timestamp': result[0].timestamp,
+          'server': result[0].server
+      });
+  }
+  console.log(messageList);
+  return messageList;
+  });  
+}
