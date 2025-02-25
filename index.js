@@ -29,6 +29,12 @@ io.on('connection', (socket) => {
 
   socket.on('chat message', (msg, username) => {
     io.emit('chat message', msg, username);
+    var timesent = new Date().toISOString().slice(0, 19).replace('T', ' ');
+    var sendMessagetoDB = `INSERT INTO messages (username, content, timestamp, server) VALUES ('${username}', '${msg}', '${timesent}', 'chat.haydar.dev')`;
+    con.query(sendMessagetoDB, function (err, result) {
+      if (err) throw err;
+      console.log("Message added in database.");
+    });
     console.log("[Recenter] New message: " + msg);
   });
 
