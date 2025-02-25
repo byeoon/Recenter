@@ -25,8 +25,8 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', (socket) => {
+  getMessages();
   io.emit('chat message', "-> A new user joined the chatroom.", "Server"); // send connect message as the server (do not put this in the database, its meant to expire)
-
   socket.on('chat message', (msg, username) => {
     io.emit('chat message', msg, username); // emit chat message 
     // io.emit is also what we use to show the message to the client, we may have to refactor this again for the other variables (timestamp and db) 
@@ -35,6 +35,7 @@ io.on('connection', (socket) => {
     con.query(sendMessagetoDB, function (err, result) {
       if (err) throw err;
       console.log("Message added in database.");
+      getMessages();
     });
     console.log("[Recenter] New message: " + msg);
   });
@@ -49,8 +50,7 @@ server.listen(process.env.PORT, () => {
   // connect to database when we start listening!
   con.connect(function(err) {
     if (err) throw err;
-    console.log("[Recenter] Connected to Recenter database. DB: " + process.env.DATABASE); 
-    getMessages();
+    console.log("[Recenter] Connected to Recenter database. DB: " + process.env.DATABASE);    
   });
 });
 
@@ -63,6 +63,7 @@ function getMessages() {
     console.log("[Recenter] Fetched messages.");
 
     for (let i = 0; i < result.length; i++) {
+      io.emit('chat message', result[i].content, result[i].username);
       messageList.push({
           'id': result[i].id,
           'username': result[0].username,
@@ -71,7 +72,7 @@ function getMessages() {
           'server': result[0].server
       });
   }
-  console.log(messageList);
+ // console.log(messageList);
   return messageList;
   });  
 }

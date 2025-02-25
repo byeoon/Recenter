@@ -41,9 +41,10 @@ h1, h2, h3, h4, p {
   border: none;
   padding: 0 1rem;
   margin: 0.25rem;
-  border-radius: 3px;
+  border-radius: 10px;
   outline: none;
   color: #fff;
+  cursor: pointer;
 }
 
 #messages {
@@ -59,3 +60,8 @@ h1, h2, h3, h4, p {
 #messages > div:hover {
   background: #212121;
 }
+
+/* 
+  Title.html 
+*/
+
