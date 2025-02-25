@@ -1,9 +1,12 @@
 {
   "dependencies": {
+    "daisyui": "^4.12.24",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "mysql": "^2.18.1",
     "socket.io": "^4.8.1",
+    "tailwindcss": "^4.0.8",
+    "tailwindcss-cli": "^0.1.2",
     "ws": "^8.18.0"
   }
 }

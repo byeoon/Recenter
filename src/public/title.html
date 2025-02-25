@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recenter</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="icon" type="image/x-icon" href="/img/favicon/favicon.ico">
+    <link href="/css/tailwind.css" rel="stylesheet">
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.2/jquery.min.js"
+      integrity="sha512-tWHlutFnuG0C6nQRlpvrEhE4QpkG1nn2MOUMWmUeRePl4e3Aki0VB6W1v3oLjFtd0hVOtRQ9PHpSfN6u6/QXkQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <div class="navbar bg-base-200">
+    <div class="flex-1" >
+      <img class="[[data-theme=black]_&]:hidden" src="https://myshare.haydar.dev/img/myshare_white.png" style="height: 64px; width: 64px;">
+      <img class="[[data-theme=light]_&]:hidden dark:hidden" src="https://myshare.haydar.dev/img/myshare_black.png" style="height: 64px; width: 64px;">
+      <a class="btn btn-ghost text-xl" href="https://myshare.haydar.dev">MyShare</a>
+    </div>
+    <div class="flex-none">
+      <ul class="menu menu-horizontal px-4">
+        <li><a onclick="location.href='/download.html';">Download</a></li>
+        <li><a onclick="location.href='/credits.html';">Credits</a></li>
+      </ul>
+      <button class="btn btn-neutral" onclick="location.href='/login.html';">Login / Register</button>
+      <div class="divider divider-horizontal"></div>
+      <label class="swap swap-rotate">
+        <input type="checkbox" class="theme-controller" value="light" />
+        <svg
+          class="swap-off h-10 w-10 fill-current"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24">
+          <path
+            d="M5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0l.71-.71A1,1,0,0,0,5.64,17ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm7-7a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4A1,1,0,0,0,12,5ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,4.93,6.34Zm12,.29a1,1,0,0,0,.7-.29l.71-.71a1,1,0,1,0-1.41-1.41L17,5.64a1,1,0,0,0,0,1.41A1,1,0,0,0,17.66,7.34ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-9,8a1,1,0,0,0-1,1v1a1,1,0,0,0,2,0V20A1,1,0,0,0,12,19ZM18.36,17A1,1,0,0,0,17,18.36l.71.71a1,1,0,0,0,1.41,0,1,1,0,0,0,0-1.41ZM12,6.5A5.5,5.5,0,1,0,17.5,12,5.51,5.51,0,0,0,12,6.5Zm0,9A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z" />
+        </svg>
+        <svg
+          class="swap-on h-10 w-10 fill-current"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24">
+          <path
+            d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z" />
+        </svg>
+      </label>
+    </div>
+  </div>
+
+
+  <div
+    id="bg"
+    class="hero bg-base-200 min-h-screen"
+    >
+    <div class="hero-overlay bg-opacity-80"></div>
+    <div class="hero-content text-neutral-content text-center">
+      <div class="max-w-md">
+        <h1
+          id="title"
+          class="text-5xl font-bold"
+          data-aos="fade-up"
+          data-aos-delay="0"
+          data-aos-duration="1000"
+          data-aos-once="true"
+          style="font-size: 64px;"
+        >
+          The Universal Clipboard
+        </h1>
+        <p
+          class="py-6"
+          data-aos="fade-down"
+          data-aos-delay="0"
+          data-aos-duration="1000"
+          data-aos-once="true"
+        >
+          MyShare allows you to send files, notes, and media across devices
+          and let them decay after a period of time.
+        </p>
+        <button class="btn btn-primary font-bold px-12" onclick="location.href='/register.html';">
+          Get Started
+        </button>
+        <div class="stats stats-vertical lg:stats-horizontal shadow" style="padding: 3px; margin: 24px;">
+          <div class="stat">
+            <div class="stat-title">Total Users</div>
+            <div class="stat-value" id="totalUserValue">0</div>
+            <div class="stat-desc">Accidentally wiped our users, please re-register!</div>
+
+          </div>
+          <div class="stat">
+            <div class="stat-title"> Total Uploads</div>
+            <div class="stat-value" id="totalNotesValue">0</div>
+            <div class="stat-desc">Past 24 Hours</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero bg-base-100 min-h-screen">
+    <div class="hero-content flex-col lg:flex-row">
+      <div>
+        <h1 class="text-5xl font-bold">Your Universal Clipboard.</h1>
+        <p class="py-6">
+          MyShare is an open source clipboard service that you can use across
+          devices.
+        </p>
+        <p class="py-2">Some of our features include:
+          <li>Saving your files directly</li>
+          <li>Automatically decay files after a certain time</li>
+          <li>Uploaded files have native Discord embed support</li>
+        </p>
+        <br>
+        <button class="btn btn-neutral px-10">Learn More</button>
+      </div>
+    </div>
+  </div>
+  <footer class="footer footer-horizontal footer-center bg-base-200 text-base-content rounded p-10">
+    <nav class="grid grid-flow-col gap-4">
+      <a class="link link-hover" href="/about.html">About us</a> |
+      <a class="link link-hover" href="/contact.html">Contact</a> |
+      <a class="link link-hover" href="/tos.html">Terms of Service</a> |
+      <a class="link link-hover" href="/privacy.html">Privacy Policy</a> |
+    </nav>
+    <nav>
+      <div class="grid grid-flow-col gap-4">
+        <a>
+
+        </a>
+      </div>
+    </nav>
+    <aside>
+      <p>Copyright © 2024 - 2025 MyShare All right reserved</p>
+    </aside>
+  </footer>
+</html>

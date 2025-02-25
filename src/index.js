@@ -25,8 +25,9 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-  getMessages();
+  getMessages(); // first call to get messages, so everything loads
   io.emit('chat message', "-> A new user joined the chatroom.", "Server"); // send connect message as the server (do not put this in the database, its meant to expire)
+
   socket.on('chat message', (msg, username) => {
     io.emit('chat message', msg, username); // emit chat message 
     // io.emit is also what we use to show the message to the client, we may have to refactor this again for the other variables (timestamp and db) 
@@ -35,7 +36,7 @@ io.on('connection', (socket) => {
     con.query(sendMessagetoDB, function (err, result) {
       if (err) throw err;
       console.log("Message added in database.");
-      getMessages();
+      getMessages(); // second call for messages, so that messages get updated whenever you send one
     });
     console.log("[Recenter] New message: " + msg);
   });
@@ -57,13 +58,14 @@ server.listen(process.env.PORT, () => {
 // Gets all messages from the database and returns it in an array.
 function getMessages() {
   let messageList = [];
+  let empty = [];
   var selectMessagesDB = 'SELECT * from messages;';
   con.query(selectMessagesDB, function (err, result) {
     if (err) throw err;
     console.log("[Recenter] Fetched messages.");
 
     for (let i = 0; i < result.length; i++) {
-      io.emit('chat message', result[i].content, result[i].username);
+      io.emit('chat message', result[i].content, result[i].username); // push all of the chat
       messageList.push({
           'id': result[i].id,
           'username': result[0].username,
@@ -76,3 +78,5 @@ function getMessages() {
   return messageList;
   });  
 }
+
+// gets the messages after the initial call, 
